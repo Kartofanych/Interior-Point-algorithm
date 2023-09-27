@@ -1,5 +1,12 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+
+        Input input = new Input();
+
+        int[] C = input.inputC();
+        int[][] A = input.inputA();
+        int[] B = input.inputB();
+
+
     }
 }
