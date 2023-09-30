@@ -3,11 +3,13 @@ public class Main {
 
         Input input = new Input();
 
-        int[] C = input.inputC();
-        int[][] A = input.inputA();
-        int[] B = input.inputB();
+        // int[] C = input.inputC();
+        // int[][] A = input.inputA();
+        // int[] B = input.inputB();
 
+        Solution test = new Solution();
 
+        System.out.println(test.solve());
     }
 }
 
