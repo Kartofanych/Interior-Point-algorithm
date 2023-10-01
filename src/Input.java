@@ -4,16 +4,18 @@ import java.util.Scanner;
 public class Input {
     Scanner scanner = new Scanner(System.in);
     int n = 0;
+    int m = 0;
     int[] inputC(){
         System.out.println("Print a vector of coefficients of objective function:");
         int[] C = Arrays.stream(scanner.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-        n = C.length;
+        n = Arrays.stream(C).filter(it -> it != 0).toArray().length;
+        m = C.length;
         return C;
     }
 
     int[][] inputA(){
         System.out.println("Print a matrix of coefficients of constraint function:");
-        int[][] A = new int[n][n];
+        int[][] A = new int[n][m];
         for(int i = 0; i < n; i ++){
             A[i] = Arrays.stream(scanner.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
         }
@@ -26,4 +28,14 @@ public class Input {
         return B;
     }
 
+    int inputApproximation(){
+        System.out.println("Print an approximation:");
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+    public boolean min() {
+        System.out.println("Print 'min' if you want to minimize and 'max' if you want to maximize:");
+        String s = scanner.nextLine();
+        return s.equals("min");
+    }
 }
