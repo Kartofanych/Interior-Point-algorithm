@@ -7,11 +7,12 @@ public class Input {
     int[] inputC(){
         System.out.println("Print a vector of coefficients of objective function:");
         int[] C = Arrays.stream(scanner.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-        n = C.length;
         return C;
     }
 
     int[][] inputA(){
+        System.out.println("Print number of a constraint functions:");
+        n = Integer.parseInt(scanner.nextLine());
         System.out.println("Print a matrix of coefficients of constraint function:");
         int[][] A = new int[n][n];
         for(int i = 0; i < n; i ++){
