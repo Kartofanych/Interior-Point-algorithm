@@ -4,26 +4,26 @@ import java.util.Scanner;
 public class Input {
     Scanner scanner = new Scanner(System.in);
     int n = 0;
-    int[] inputC(){
+    double[] inputC(){
         System.out.println("Input the vector of coefficients of objective function:");
-        int[] C = Arrays.stream(scanner.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+        double[] C = Arrays.stream(scanner.nextLine().split(" ")).mapToDouble(Double::parseDouble).toArray();
         return C;
     }
 
-    int[][] inputA(){
+    double[][] inputA(){
         System.out.println("Input the number of a constraint functions:");
         n = Integer.parseInt(scanner.nextLine());
         System.out.println("Input the matrix of coefficients of constraint function:");
-        int[][] A = new int[n][n];
+        double[][] A = new double[n][n];
         for(int i = 0; i < n; i ++){
-            A[i] = Arrays.stream(scanner.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+            A[i] = Arrays.stream(scanner.nextLine().split(" ")).mapToDouble(Double::parseDouble).toArray();
         }
         return A;
     }
 
-    int[] inputB(){
+    double[] inputB(){
         System.out.println("Input the vector of right-hand side numbers:");
-        int[] B = Arrays.stream(scanner.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+        double[] B = Arrays.stream(scanner.nextLine().split(" ")).mapToDouble(Double::parseDouble).toArray();
         return B;
     }
 

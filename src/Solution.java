@@ -1,26 +1,10 @@
 public class Solution {
     
-    double solve(int[] c, int[][] a, int[] b, boolean min) {
+    double solve(double[] C, double[][] A, double[] B, boolean min) {
 
         try {
-            int csz = c.length; // number of variables
-            int asz = a.length; // number of equations
-            double[] C = new double[csz + asz]; // array of constraints
-            for (int i = 0; i < csz + asz; i ++ ) { // adding slack variables to the vector of constraints
-                C[i] = i < csz ? c[i] : 0;
-            }
-
-            double[][] A = new double[asz][csz + asz];
-            for (int i = 0; i < asz; i ++ ) { // adding slack variables to the matrix A
-                for (int j = 0; j < asz + csz; j ++ ) {
-                    A[i][j] = j < csz ? a[i][j] : (j - csz != i ? 0 : 1);
-                }
-            }
-
-            double[] B = new double[asz];
-            for (int i = 0 ; i < asz; i ++ ) {
-                B[i] = b[i];
-            }
+            int csz = C.length; // number of variables
+            int asz = A.length; // number of equations
 
             int[] basis = new int[asz];
 
