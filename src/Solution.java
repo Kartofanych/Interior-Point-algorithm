@@ -1,21 +1,34 @@
 public class Solution {
     
-    double solve(int[] C, int[][] A, int[] B, boolean min) {
+    double solve(int[] c, int[][] a, int[] b, boolean min) {
 
         try {
+            int csz = c.length; // number of variables
+            int asz = a.length; // number of equations
+            double[] C = new double[csz + asz]; // array of constraints
+            for (int i = 0; i < csz + asz; i ++ ) { // adding slack variables to the vector of constraints
+                C[i] = i < csz ? c[i] : 0;
+            }
 
-            //double[] C = {1, 1, 0, 0}; // coefficients of objective function
+            double[][] A = new double[asz][csz + asz];
+            for (int i = 0; i < asz; i ++ ) { // adding slack variables to the matrix A
+                for (int j = 0; j < asz + csz; j ++ ) {
+                    A[i][j] = j < csz ? a[i][j] : (j - csz != i ? 0 : 1);
+                }
+            }
 
-            //double[][] A = {{1, 1, 0, 1},
-            //     {2, 1, 1, 0},}; // coefficients of constraint function
+            double[] B = new double[asz];
+            for (int i = 0 ; i < asz; i ++ ) {
+                B[i] = b[i];
+            }
 
-            //double[] B = {8, 10}; // right-hand side values
+            int[] basis = new int[asz];
 
-            int[] basis = {2, 3}; // indexes of basic variables
+            for (int i = 0 ; i < asz; i ++ ) { // forming the basis
+                basis[i] = i + csz;
+            }
 
             int n = A.length, m = A[0].length; // dimensions of table
-
-            //boolean min = false; // true if checking for minimum, and false otherwise
 
             boolean optimal = false; // keeps track of optimality
 
@@ -68,8 +81,9 @@ public class Solution {
                     basis[leavingVar] = enteringVar; // change the basis in the table
 
                     for (int i = 0; i < m; i++) { // divide pivot row by pivot element
-                        if (i != enteringVar)
+                        if (i != enteringVar){
                             A[leavingVar][i] /= A[leavingVar][enteringVar];
+                        }
                     }
                     B[leavingVar] /= A[leavingVar][enteringVar];
                     A[leavingVar][enteringVar] = 1;

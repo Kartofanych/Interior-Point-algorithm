@@ -5,15 +5,15 @@ public class Input {
     Scanner scanner = new Scanner(System.in);
     int n = 0;
     int[] inputC(){
-        System.out.println("Print a vector of coefficients of objective function:");
+        System.out.println("Input the vector of coefficients of objective function:");
         int[] C = Arrays.stream(scanner.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
         return C;
     }
 
     int[][] inputA(){
-        System.out.println("Print number of a constraint functions:");
+        System.out.println("Input the number of a constraint functions:");
         n = Integer.parseInt(scanner.nextLine());
-        System.out.println("Print a matrix of coefficients of constraint function:");
+        System.out.println("Input the matrix of coefficients of constraint function:");
         int[][] A = new int[n][n];
         for(int i = 0; i < n; i ++){
             A[i] = Arrays.stream(scanner.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
@@ -22,13 +22,13 @@ public class Input {
     }
 
     int[] inputB(){
-        System.out.println("Print a vector of right-hand side numbers:");
+        System.out.println("Input the vector of right-hand side numbers:");
         int[] B = Arrays.stream(scanner.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
         return B;
     }
 
     int inputApproximation(){
-        System.out.println("Print an approximation:");
+        System.out.println("Input the approximation:");
         return Integer.parseInt(scanner.nextLine());
     }
 
