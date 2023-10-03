@@ -11,7 +11,7 @@ public class Main {
         int approximation = input.inputApproximation();
         boolean min = input.min();
 
-        output.outputResult(solution.solve(C, A, B, min), min);
+        output.outputResult(solution.solve(C, A, B, min), approximation, min);
     }
 }
 
