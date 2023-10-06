@@ -1,40 +1,71 @@
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Input {
     Scanner scanner = new Scanner(System.in);
-    int n = 0;
-    double[] inputC(){
-        System.out.println("Input the vector of coefficients of objective function:");
-        double[] C = Arrays.stream(scanner.nextLine().split(" ")).mapToDouble(Double::parseDouble).toArray();
+    private double[] C;
+    private double[][] A;
+    private double[] b;
+    private int approximation;
+
+    void processInput() {
+        System.out.println(
+                "Input in format:\n" +
+                "  C(1) ... C(n)\n" +
+                "A(1,1) ... A(1,n)\n" +
+                "       ...\n" +
+                "A(m,1) ... A(m,n)\n" +
+                "  b(1) ... b(m)\n" +
+                "(Number of digits after floating point)"
+        );
+        C = Arrays.stream(scanner.nextLine().split(" ")).mapToDouble(Double::parseDouble).toArray();
+
+        LinkedList<double[]> AList = new LinkedList<>();
+        while (true) {
+            double[] line = Arrays.stream(scanner.nextLine().split(" ")).mapToDouble(Double::parseDouble).toArray();
+            if (line.length == 1) { // found approximation line
+                approximation = (int) line[0];
+                b = AList.removeLast(); // means the line before was b
+                break;
+            }
+            AList.add(line);
+        }
+        A = AList.toArray(new double[0][0]);
+
+//        Debug
+//        System.out.println("\nC:");
+//        for (double i : C) {
+//            System.out.print(i + " ");
+//        }
+//        System.out.println("\nApprox:");
+//        System.out.println(approximation + "\nb:");
+//        for (double i : b) {
+//            System.out.print(i + " ");
+//        }
+//        System.out.println("\nA:");
+//        for (double[] i : A) {
+//            for (double j : i) {
+//                System.out.print(j + " ");
+//            }
+//            System.out.println();
+//        }
+//        System.out.println();
+    }
+
+    public double[] getC() {
         return C;
     }
 
-    double[][] inputA(){
-        System.out.println("Input the number of a constraint functions:");
-        n = Integer.parseInt(scanner.nextLine());
-        System.out.println("Input the matrix of coefficients of constraint function:");
-        double[][] A = new double[n][n];
-        for(int i = 0; i < n; i ++){
-            A[i] = Arrays.stream(scanner.nextLine().split(" ")).mapToDouble(Double::parseDouble).toArray();
-        }
+    public double[][] getA() {
         return A;
     }
 
-    double[] inputB(){
-        System.out.println("Input the vector of right-hand side numbers:");
-        double[] B = Arrays.stream(scanner.nextLine().split(" ")).mapToDouble(Double::parseDouble).toArray();
-        return B;
+    public double[] getB() {
+        return b;
     }
 
-    int inputApproximation(){
-        System.out.println("Input the approximation - the number of values after the decimal point:");
-        return Integer.parseInt(scanner.nextLine());
-    }
-
-    public boolean min() {
-        System.out.println("Print 'min' if you want to minimize and 'max' if you want to maximize:");
-        String s = scanner.nextLine();
-        return s.equals("min");
+    public int getApproximation() {
+        return approximation;
     }
 }
