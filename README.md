@@ -23,10 +23,6 @@ Project is made to learn Simplex algorithm
 - A vector of decision variables - x*
 - Maximum (minimum) value of the objective function.
 
-
-## Screenshots
-
-
 ## Built With
 
 <a href="https://www.java.com/ru/"><img src="https://i.pinimg.com/originals/6f/b2/46/6fb2464f755e26b303e49d4699df2d8f.png" height="60px" width="60px" /></a>
