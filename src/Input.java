@@ -10,7 +10,15 @@ public class Input {
     private int approximation;
 
     void processInput() {
-        System.out.println("Input the vector of coefficients of objective function:");
+        System.out.println(
+                "Input in format:\n" +
+                "  C(1) ... C(n)\n" +
+                "A(1,1) ... A(1,n)\n" +
+                "       ...\n" +
+                "A(m,1) ... A(m,n)\n" +
+                "  b(1) ... b(m)\n" +
+                "(Number of digits after floating point)"
+        );
         C = Arrays.stream(scanner.nextLine().split(" ")).mapToDouble(Double::parseDouble).toArray();
 
         LinkedList<double[]> AList = new LinkedList<>();
