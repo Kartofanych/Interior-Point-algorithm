@@ -27,9 +27,6 @@ Project is made to learn Simplex algorithm
 
 <a href="https://www.java.com/ru/"><img src="https://i.pinimg.com/originals/6f/b2/46/6fb2464f755e26b303e49d4699df2d8f.png" height="60px" width="60px" /></a>
 
-## Usage
-
-
 ## Acknowledgements
 
 Project was made in Innopolis University by Bachelors2022 Group CS-02
