@@ -2,7 +2,7 @@ public class Solution {
     
     double solve(double[] con, double[][] a, double[] B, boolean min) {
 
-        // try {
+        try {
             int csz = con.length; // number of variables
             int asz = a.length; // number of equations
             double[] C = new double[csz + asz]; // array of constraints
@@ -76,6 +76,10 @@ public class Solution {
                         }
                     }
 
+                    if (leavingVar == -1) {
+                        throw new IndexOutOfBoundsException();
+                    }
+
 
                     basis[leavingVar] = enteringVar; // change the basis in the table
 
@@ -110,9 +114,9 @@ public class Solution {
             }
 
             return ans;
-        // }catch (Exception err) {
-        //     //error occurred
-        //     return Double.MIN_VALUE;
-        // }
+        }catch (Exception err) {
+            //error occurred
+            return Double.MIN_VALUE;
+        }
     }
 }
