@@ -1,10 +1,25 @@
 public class Solution {
     
-    double solve(double[] C, double[][] A, double[] B, boolean min) {
+    double solve(double[] con, double[][] a, double[] B, boolean min) {
 
-        try {
-            int csz = C.length; // number of variables
-            int asz = A.length; // number of equations
+        // try {
+            int csz = con.length; // number of variables
+            int asz = a.length; // number of equations
+            double[] C = new double[csz + asz]; // array of constraints
+            for (int i = 0; i < csz + asz; i ++ ) { // adding slack variables to the vector of constraints
+                if (i < csz) {
+                    C[i] = con[i];
+                } else {
+                    C[i] = 0;
+                }
+            }
+
+            double[][] A = new double[asz][csz + asz];
+            for (int i = 0; i < asz; i ++ ) { // adding slack variables to the matrix A
+                for (int j = 0; j < asz + csz; j ++ ) {
+                    A[i][j] = j < csz ? a[i][j] : (j - csz != i ? 0 : 1);
+                }
+            }
 
             int[] basis = new int[asz];
 
@@ -95,9 +110,9 @@ public class Solution {
             }
 
             return ans;
-        }catch (Exception err) {
-            //error occurred
-            return Double.MIN_VALUE;
-        }
+        // }catch (Exception err) {
+        //     //error occurred
+        //     return Double.MIN_VALUE;
+        // }
     }
 }
