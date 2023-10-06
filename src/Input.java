@@ -28,7 +28,7 @@ public class Input {
     }
 
     int inputApproximation(){
-        System.out.println("Input the approximation:");
+        System.out.println("Input the approximation - the number of values after the decimal point:");
         return Integer.parseInt(scanner.nextLine());
     }
 
