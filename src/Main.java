@@ -5,13 +5,8 @@ public class Main {
         Output output = new Output();
         Solution solution = new Solution();
 
-        double[] C = input.inputC();
-        double[][] A = input.inputA();
-        double[] B = input.inputB();
-        int approximation = input.inputApproximation();
-        boolean min = input.min();
-
-        output.outputResult(solution.solve(C, A, B, min), approximation, min);
+        input.processInput();
+        output.outputResult(solution.solve(input.getC(), input.getA(), input.getB(), false), input.getApproximation(), false);
     }
 }
 
