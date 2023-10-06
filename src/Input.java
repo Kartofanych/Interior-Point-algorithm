@@ -8,19 +8,23 @@ public class Input {
     private double[][] A;
     private double[] b;
     private int approximation;
+    private boolean isMin = false;
 
     void processInput() {
         System.out.println(
                 "Input in format:\n" +
-                "  C(1) ... C(n)\n" +
-                "A(1,1) ... A(1,n)\n" +
-                "       ...\n" +
-                "A(m,1) ... A(m,n)\n" +
-                "  b(1) ... b(m)\n" +
-                "(Number of digits after floating point)"
+                        "  C(1) ... C(n)\n" +
+                        "A(1,1) ... A(1,n)\n" +
+                        "       ...\n" +
+                        "A(m,1) ... A(m,n)\n" +
+                        "  b(1) ... b(m)\n" +
+                        "(Approximation)"+
+                        "(min or max)"
         );
+        System.out.println("Print a vector of coefficients of objective function:");
         C = Arrays.stream(scanner.nextLine().split(" ")).mapToDouble(Double::parseDouble).toArray();
 
+        System.out.println("Print a matrix of coefficients of constraint function, vector b and approximation:");
         LinkedList<double[]> AList = new LinkedList<>();
         while (true) {
             double[] line = Arrays.stream(scanner.nextLine().split(" ")).mapToDouble(Double::parseDouble).toArray();
@@ -33,24 +37,9 @@ public class Input {
         }
         A = AList.toArray(new double[0][0]);
 
-//        Debug
-//        System.out.println("\nC:");
-//        for (double i : C) {
-//            System.out.print(i + " ");
-//        }
-//        System.out.println("\nApprox:");
-//        System.out.println(approximation + "\nb:");
-//        for (double i : b) {
-//            System.out.print(i + " ");
-//        }
-//        System.out.println("\nA:");
-//        for (double[] i : A) {
-//            for (double j : i) {
-//                System.out.print(j + " ");
-//            }
-//            System.out.println();
-//        }
-//        System.out.println();
+        System.out.println("Print `min` if you need to minimize and `max` if you need to maximize:");
+        String minimum = scanner.nextLine();
+        if (minimum.equals("min")) isMin = true;
     }
 
     public double[] getC() {
@@ -63,6 +52,10 @@ public class Input {
 
     public double[] getB() {
         return b;
+    }
+
+    public boolean isMin() {
+        return isMin;
     }
 
     public int getApproximation() {

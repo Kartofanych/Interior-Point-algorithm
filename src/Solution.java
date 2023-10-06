@@ -1,5 +1,3 @@
-import javafx.util.Pair;
-
 public class Solution {
     
     Pair<Double, double[]> solve(double[] con, double[][] a, double[] B, boolean min) {

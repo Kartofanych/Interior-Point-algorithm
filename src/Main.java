@@ -6,7 +6,7 @@ public class Main {
         Solution solution = new Solution();
 
         input.processInput();
-        output.outputResult(solution.solve(input.getC(), input.getA(), input.getB(), false), input.getApproximation(), false);
+        output.outputResult(solution.solve(input.getC(), input.getA(), input.getB(), input.isMin()), input.getApproximation(), input.isMin());
     }
 }
 
