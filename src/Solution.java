@@ -1,6 +1,8 @@
+import javafx.util.Pair;
+
 public class Solution {
     
-    double solve(double[] con, double[][] a, double[] B, boolean min) {
+    Pair<Double, double[]> solve(double[] con, double[][] a, double[] B, boolean min) {
 
         try {
             int csz = con.length; // number of variables
@@ -144,10 +146,12 @@ public class Solution {
             }
             
             // return B and ans
-            return ans;
+            Pair<Double, double[]> res = new Pair<>(ans, B);
+            return res;
         }catch (Exception err) {
             //error occurred
-            return Double.MIN_VALUE;
+            Pair<Double, double[]> res = new Pair<>(Double.MIN_VALUE, B);
+            return res;
         }
     }
 }
