@@ -1,8 +1,8 @@
 public class Solution {
-    
-    double solve(double[] con, double[][] a, double[] B, boolean min) {
 
-        // try {
+    Pair<Double, double[]> solve(double[] con, double[][] a, double[] B, boolean min) {
+
+        try {
             int csz = con.length; // number of variables
             int asz = a.length; // number of equations
             double[] C = new double[csz + asz]; // array of constraints
@@ -16,15 +16,45 @@ public class Solution {
 
             double[][] A = new double[asz][csz + asz];
             for (int i = 0; i < asz; i ++ ) { // adding slack variables to the matrix A
+                int std = 1;
+                if (B[i] < 0) {
+                    std = -1;
+                    B[i] *= -1;
+                }
                 for (int j = 0; j < asz + csz; j ++ ) {
                     A[i][j] = j < csz ? a[i][j] : (j - csz != i ? 0 : 1);
+                    A[i][j] *= std;
                 }
             }
 
             int[] basis = new int[asz];
 
+            for (int i = 0 ; i < asz; i ++ ) {
+                basis[i] = -1;
+            }
+
             for (int i = 0 ; i < asz; i ++ ) { // forming the basis
-                basis[i] = i + csz;
+                for (int j = 0 ; j < asz + csz; j ++ ) {
+                    if (A[i][j] == 1) {
+                        boolean chk = true;
+                        for (int k = 0; k < asz; k ++ ) {
+                            if ( k != i && A[k][j] != 0) {
+                                chk = false;
+                                break;
+                            }
+                        }
+                        if ( chk ) {
+                            basis[i] = j;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            for (int  i = 0; i < asz; i ++ ) {
+                if ( basis[i] == -1 ) {
+                    throw new IndexOutOfBoundsException();
+                }
             }
 
             int n = A.length, m = A[0].length; // dimensions of table
@@ -70,10 +100,14 @@ public class Solution {
                     int leavingVar = -1;
 
                     for (int i = 0; i < n; i++) { // find the leaving variable
-                        if (B[i] / A[i][enteringVar] > 0 && (B[i] / A[i][enteringVar] < leavingVarVal || leavingVar == -1)) {
+                        if (B[i] / A[i][enteringVar] >= 0 && (B[i] / A[i][enteringVar] < leavingVarVal || leavingVar == -1)) {
                             leavingVar = i;
                             leavingVarVal = B[i] / A[i][enteringVar];
                         }
+                    }
+
+                    if (leavingVar == -1) {
+                        throw new IndexOutOfBoundsException();
                     }
 
 
@@ -109,10 +143,17 @@ public class Solution {
                 ans += C[basis[i]] * B[i];
             }
 
-            return ans;
-        // }catch (Exception err) {
-        //     //error occurred
-        //     return Double.MIN_VALUE;
-        // }
+            double[] xs = new double[csz];
+            for (int i = 0; i < n; i++) {
+                if (C[basis[i]] == 0)
+                    continue; // if the variable does not contribute to the answer, drop it by default
+                xs[basis[i]] = B[i];
+            }
+
+            return new Pair<>(ans, xs);
+        }catch (Exception err) {
+            //error occurred
+            return new Pair<>(Double.MIN_VALUE, B);
+        }
     }
 }
