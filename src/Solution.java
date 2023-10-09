@@ -1,5 +1,5 @@
 public class Solution {
-    
+
     Pair<Double, double[]> solve(double[] con, double[][] a, double[] B, boolean min) {
 
         try {
@@ -142,14 +142,18 @@ public class Solution {
             for (int i = 0; i < n; i++) { // subsitute variables into the objective function, and calculate the answer
                 ans += C[basis[i]] * B[i];
             }
-            
-            // return B and ans
-            Pair<Double, double[]> res = new Pair<>(ans, B);
-            return res;
+
+            double[] xs = new double[csz];
+            for (int i = 0; i < n; i++) {
+                if (C[basis[i]] == 0)
+                    continue; // if the variable does not contribute to the answer, drop it by default
+                xs[basis[i]] = B[i];
+            }
+
+            return new Pair<>(ans, xs);
         }catch (Exception err) {
             //error occurred
-            Pair<Double, double[]> res = new Pair<>(Double.MIN_VALUE, B);
-            return res;
+            return new Pair<>(Double.MIN_VALUE, B);
         }
     }
 }
