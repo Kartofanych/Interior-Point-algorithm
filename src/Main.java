@@ -3,10 +3,12 @@ public class Main {
 
         Input input = new Input();
         Output output = new Output();
-        Solution solution = new Solution();
+        InteriorPoint solution = new InteriorPoint();
+        Solution simplex = new Solution();
 
         input.processInput();
-        output.outputResult(solution.solve(input.getC(), input.getA(), input.getB(), input.isMin()), input.getApproximation(), input.isMin());
+        solution.solve(input, output);
+        simplex.solve(input, output);
     }
 }
 
