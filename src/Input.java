@@ -7,6 +7,7 @@ public class Input {
     private double[] C;
     private double[][] A;
     private double[] b;
+    private double[] x;
     private int approximation;
     private boolean isMin = false;
 
@@ -18,7 +19,8 @@ public class Input {
                         "       ...\n" +
                         "A[m,1] ... A[m,n]\n" +
                         "  b[1] ... b[m]\n" +
-                        "[Approximation]"
+                        "[Approximation]\n" +
+                        "x[1] ... x[2 * n] - initial solution"
         );
 //        System.out.println("Print a vector of coefficients of objective function:");
         C = Arrays.stream(scanner.nextLine().split(" ")).mapToDouble(Double::parseDouble).toArray();
@@ -35,7 +37,7 @@ public class Input {
             AList.add(line);
         }
         A = AList.toArray(new double[0][0]);
-
+        x = Arrays.stream(scanner.nextLine().split(" ")).mapToDouble(Double::parseDouble).toArray();
 //        System.out.println("Print `min` if you need to minimize and `max` if you need to maximize:");
 //        String minimum = scanner.nextLine();
 //        if (minimum.equals("min")) isMin = true;
@@ -50,7 +52,9 @@ public class Input {
     }
 
     public double[] getB() {
-        return b;
+        double[] bb = new double[b.length];
+        System.arraycopy(b, 0, bb, 0, b.length);
+        return bb;
     }
 
     public boolean isMin() {
@@ -59,5 +63,9 @@ public class Input {
 
     public int getApproximation() {
         return approximation;
+    }
+
+    public double[] getX() {
+        return x;
     }
 }

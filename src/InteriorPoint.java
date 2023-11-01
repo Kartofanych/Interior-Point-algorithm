@@ -1,25 +1,22 @@
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class InteriorPoint {
-    double[] x;
     void solve(Input input, Output output) {
         
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Input the initial feasible solution in format:\n" +
-                                "x[1] ... x[2 * n]");
-        x = Arrays.stream(scanner.nextLine().split(" ")).mapToDouble(Double::parseDouble).toArray();
-        scanner.close();
+        // Scanner scanner = new Scanner(System.in);
+        // System.out.println("Input the initial feasible solution in format:\n" +
+        //                         "x[1] ... x[2 * n]");
+        // x = Arrays.stream(scanner.nextLine().split(" ")).mapToDouble(Double::parseDouble).toArray();
+        // scanner.close();
 
         System.out.println("Interior method with alpha 0.5:");
-        output.outputResult(solve(input.getC(), input.getA(), input.getB(), input.isMin(), 0.5), input.getApproximation(), input.isMin());
+        output.outputResult(solve(input.getC(), input.getA(), input.getB(), input.getX(), input.isMin(), 0.5), input.getApproximation(), input.isMin());
         System.out.println("\n");
 
         System.out.println("Interior method with alpha 0.9:");
-        output.outputResult(solve(input.getC(), input.getA(), input.getB(), input.isMin(), 0.9), input.getApproximation(), input.isMin());
-        System.out.println("\n");
+        output.outputResult(solve(input.getC(), input.getA(), input.getB(), input.getX(), input.isMin(), 0.9), input.getApproximation(), input.isMin());
     }
-    Pair<Double, double[]> solve(double[] con, double[][] a, double[] B, boolean min, double al) {
+    Pair<Double, double[]> solve(double[] con, double[][] a, double[] B, double[] X, boolean min, double al) {
         try {
             int csz = con.length; // number of variables
             int asz = a.length; // number of equations
@@ -27,23 +24,33 @@ public class InteriorPoint {
             double alpha = al; // alpha
             for (int i = 0; i < csz + asz; i ++ ) { // adding slack variables to the vector of constraints
                 if (i < csz) {
-                    C[i] = con[i];
+                    C[i] = con[i] * 1.0;
                 } else {
-                    C[i] = 0;
+                    C[i] = 0.0;
                 }
             }
 
             double[][] A = new double[asz][csz + asz];
             for (int i = 0; i < asz; i ++ ) { // adding slack variables to the matrix A
-                int std = 1;
+                double std = 1.0;
+
                 if (B[i] < 0) {
-                    std = -1;
-                    B[i] *= -1;
+                    std = -1.0;
                 }
+                B[i] *= std;
                 for (int j = 0; j < asz + csz; j ++ ) {
                     A[i][j] = j < csz ? a[i][j] : (j - csz != i ? 0 : 1);
                     A[i][j] *= std;
                 }
+            }
+            double[] x = new double[X.length * 2];
+            for (int i = 0; i < X.length; i ++) {
+                x[i] = X[i];
+                double sum = 0.0;
+                for (int j = 0; j < X.length; j ++) {
+                    sum += A[i][j] * X[j];
+                }
+                x[i + X.length] = B[i] - sum;
             }
             while (true) {
                 double[] v = Arrays.copyOf(x, x.length); // copy of vector of the feasible point
@@ -90,6 +97,9 @@ public class InteriorPoint {
             double ans = 0;
 
             for (int j = 0; j < csz; j++) {
+                if (x[j] < 0 ) {
+                    throw new IndexOutOfBoundsException();
+                }
                 ans += x[j] * C[j];
             }
             return new Pair<>(ans, Arrays.copyOf(x, csz));

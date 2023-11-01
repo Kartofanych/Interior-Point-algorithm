@@ -2,6 +2,7 @@ public class Solution {
     void solve(Input input, Output output) {
         System.out.println("Simplex: ");
         output.outputResult(solve(input.getC(), input.getA(), input.getB(), input.isMin()), input.getApproximation(), input.isMin());
+        System.out.println("\n");
     }
     Pair<Double, double[]> solve(double[] con, double[][] a, double[] B, boolean min) {
 

@@ -7,8 +7,8 @@ public class Main {
         Solution simplex = new Solution();
 
         input.processInput();
-        solution.solve(input, output);
         simplex.solve(input, output);
+        solution.solve(input, output);
     }
 }
 
