@@ -20,6 +20,7 @@ public class InteriorPoint {
         try {
             int csz = con.length; // number of variables
             int asz = a.length; // number of equations
+            double[] oldB = Arrays.copyOf(B, asz);
             double[] C = new double[csz + asz]; // array of constraints
             double alpha = al; // alpha
             for (int i = 0; i < csz + asz; i ++ ) { // adding slack variables to the vector of constraints
@@ -95,6 +96,20 @@ public class InteriorPoint {
             }
 
             double ans = 0;
+
+            for (int i = 0; i < asz; i++) {
+                int sum = 0;
+                for (int j = 0; j < csz; j++) {
+                    sum += A[i][j] * x[j];
+                }
+                if (oldB[i] != B[i]) {
+                    sum *= -1;
+                }
+                if ((oldB[i] == B[i] && sum > B[i]) || (oldB[i] != B[i] && -sum < B[i])) {
+                    throw new IndexOutOfBoundsException();
+                }
+            }
+            System.out.println();
 
             for (int j = 0; j < csz; j++) {
                 if (x[j] < 0 ) {
