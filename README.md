@@ -1,9 +1,9 @@
 ![Repo Size](https://img.shields.io/github/languages/code-size/Kartofanych/android-todo-app-MVVM.svg?style=for-the-badge) ![TOP_LANGUAGE](https://img.shields.io/github/languages/top/Kartofanych/Simplex_algorithm.svg?style=for-the-badge) 
     
-# Simplex_algorithm
-This is implementation of Simplex algorithm to solve LPP problems.
+# Interior-Point algorithm
+This is implementation of Interior-Point algorithm to solve LPP problems.
 
-Project is made to learn Simplex algorithm
+Project is made to learn Interior-Point algorithm
 
 ## Description
 
