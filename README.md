@@ -1,27 +1,26 @@
 ![Repo Size](https://img.shields.io/github/languages/code-size/Kartofanych/android-todo-app-MVVM.svg?style=for-the-badge) ![TOP_LANGUAGE](https://img.shields.io/github/languages/top/Kartofanych/Simplex_algorithm.svg?style=for-the-badge) 
     
-# Simplex_algorithm
-This is implementation of Simplex algorithm to solve LPP problems.
+# Transportation problem
+This is implementation of North-West, Vogel's approximation, and Russel's approximation methods.
 
-Project is made to learn Simplex algorithm
+Project is made to find initial solution for the Transportation problem
 
 ## Description
 
 ### The input contains:
 
-- A vector of coefficients of objective function - C.
-- A matrix of coefficients of constraint function - A.
-- A vector of right-hand side numbers - b.
-- The approximation accuracy.
+- The number of sources, and destinations
+- A matrix of node prices - c.
+- A vector of supplies - s.
+- A vector of demands - d.
 
 ### The output contains:
 
-- The string ”The method is not applicable!”
+- The string ”The problem is not balanced!”
 
   or
 
-- A vector of decision variables - x*
-- Maximum (minimum) value of the objective function.
+- A matrices of decisions for all three methods
 
 ## Built With
 
